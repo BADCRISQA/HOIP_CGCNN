@@ -30,13 +30,13 @@ parser.add_argument('--disable-cuda', action='store_true',
                     help='Disable CUDA')
 parser.add_argument('-j', '--workers', default=0, type=int, metavar='N',
                     help='number of data loading workers (default: 0)')
-parser.add_argument('--epochs', default=30, type=int, metavar='N',
+parser.add_argument('--epochs', default=100, type=int, metavar='N',
                     help='number of total epochs to run (default: 30)')
 parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
                     help='manual epoch number (useful on restarts)')
-parser.add_argument('-b', '--batch-size', default=256, type=int,
+parser.add_argument('-b', '--batch-size', default=128, type=int,
                     metavar='N', help='mini-batch size (default: 256)')
-parser.add_argument('--lr', '--learning-rate', default=0.005, type=float,
+parser.add_argument('--lr', '--learning-rate', default=0.0008, type=float,
                     metavar='LR', help='initial learning rate (default: '
                                        '0.01)')
 parser.add_argument('--lr-milestones', default=[100], nargs='+', type=int,
@@ -44,14 +44,14 @@ parser.add_argument('--lr-milestones', default=[100], nargs='+', type=int,
                                       '[100])')
 parser.add_argument('--momentum', default=0.9, type=float, metavar='M',
                     help='momentum')
-parser.add_argument('--weight-decay', '--wd', default=0, type=float,
+parser.add_argument('--weight-decay', '--wd', default=5e-6, type=float,
                     metavar='W', help='weight decay (default: 0)')
 parser.add_argument('--print-freq', '-p', default=10, type=int,
                     metavar='N', help='print frequency (default: 10)')
 parser.add_argument('--resume', default='', type=str, metavar='PATH',
                     help='path to latest checkpoint (default: none)')
 train_group = parser.add_mutually_exclusive_group()
-train_group.add_argument('--train-ratio', default=None, type=float, metavar='N',
+train_group.add_argument('--train-ratio', default=0.8, type=float, metavar='N',
                     help='number of training data to be loaded (default none)')
 train_group.add_argument('--train-size', default=None, type=int, metavar='N',
                          help='number of training data to be loaded (default none)')
@@ -68,7 +68,7 @@ test_group.add_argument('--test-ratio', default=0.1, type=float, metavar='N',
 test_group.add_argument('--test-size', default=None, type=int, metavar='N',
                         help='number of test data to be loaded (default 1000)')
 
-parser.add_argument('--optim', default='SGD', type=str, metavar='SGD',
+parser.add_argument('--optim', default='Adam', type=str, metavar='SGD',
                     help='choose an optimizer, SGD or Adam, (default: SGD)')
 parser.add_argument('--atom-fea-len', default=128, type=int, metavar='N',
                     help='number of hidden atom features in conv layers')
@@ -76,15 +76,15 @@ parser.add_argument('--atom-fea-len', default=128, type=int, metavar='N',
 parser.add_argument('--h-fea-len', default=256, type=int, metavar='N',
                     help='number of hidden features after pooling')
 #128
-parser.add_argument('--n-conv', default=6, type=int, metavar='N',
+parser.add_argument('--n-conv', default=5, type=int, metavar='N',
                     help='number of conv layers')
 #3
 parser.add_argument('--n-h', default=2, type=int, metavar='N',
                     help='number of hidden layers after pooling')
 #1
 parser.add_argument('--lr-scheduler', type=str, default='multistep', choices=['multistep', 'cosine'], help='Learning rate scheduler type')
-parser.add_argument('--cosine-tmax', type=int, default=None, help='T_max for cosine annealing scheduler')
-parser.add_argument('--save-data-path', default=None, type=str, help='path to save training data as CSV')
+parser.add_argument('--cosine-tmax', type=int, default=100, help='T_max for cosine annealing scheduler')
+parser.add_argument('--save-data-path', default="training_data.csv", type=str, help='path to save training data as CSV')
 
 
 
